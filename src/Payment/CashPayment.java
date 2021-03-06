@@ -1,4 +1,4 @@
-package Payments;
+package Payment;
 
 public class CashPayment {
 }

@@ -1,4 +1,6 @@
 package Vehicles;
 
-public class Vehicle {
+public interface Vehicle {
+    int getID();
+    VehicleType getVehicleType();
 }
