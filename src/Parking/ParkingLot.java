@@ -6,8 +6,8 @@ import Vehicles.Vehicle;
 import java.util.Collection;
 
 public class ParkingLot {
-    private Collection<ParkingLevel> fullLevels;
-    private Collection<ParkingLevel> nonFullLevels;
+    private ParkingLevelsCollection fullLevels;
+    private ParkingLevelsCollection nonFullLevels;
     private LevelAssignmentPolicy levelAssignmentPolicy;
     private PaymentCalculation paymentCalculation;
 
@@ -15,7 +15,13 @@ public class ParkingLot {
         ParkingLevel assignedParkingLevel =
                 levelAssignmentPolicy.assignLevel(nonFullLevels,
                         vehicle);
-        ParkingTicket parkingTicket = assignedParkingLevel.parkVehicle(vehicle);
+        ParkingSpot assignedParkingSpot =
+                assignedParkingLevel.parkVehicle(vehicle);
+
+        if (assignedParkingLevel.getTotalNumOfVacantSpots()==0) {
+            nonFullLevels.remove(assignedParkingLevel);
+            fullLevels.add(assignedParkingLevel);
+        }
         return parkingTicket;
     }
 
@@ -35,6 +41,9 @@ public class ParkingLot {
         paymentTicket.getParkingSpot().getParkingLevel().unparkVehicle(vehicle);
     }
 
+    private ParkingTicket generateParkingTicket() {
+
+    }
     private PaymentTicket generatePaymentTicket(ParkingTicket parkingTicket, double paymentSum) {
         return new PaymentTicket(parkingTicket.getVehicleID(),
                 parkingTicket.getParkingSpot(),
@@ -54,9 +63,19 @@ public class ParkingLot {
         this.paymentCalculation = paymentCalculation;
     }
 
-    void addLevel(ParkingLevel parkingLevel) {
+    public ParkingLevel getLevel(int parkingLevelID) {
+        ParkingLevel parkingLevel = fullLevels.getParkingLevel(parkingLevelID);
+        if (parkingLevel!=null) {
+            return parkingLevel;
+        }
+        return nonFullLevels.getParkingLevel((parkingLevelID));
+    }
+    public void addLevel(ParkingLevel parkingLevel) {
+        nonFullLevels.add(parkingLevel);
     }
 
-    void removeLevel(ParkingLevel parkingLevel) {
+    public void removeLevel(ParkingLevel parkingLevel) {
+        fullLevels.remove(parkingLevel);
+        nonFullLevels.remove(parkingLevel);
     }
 }

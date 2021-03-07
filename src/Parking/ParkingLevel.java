@@ -7,10 +7,19 @@ import java.util.Iterator;
 
 public interface ParkingLevel {
 
-    ParkingTicket parkVehicle(
-            Vehicle vehicle);
+    int getNumOfVacantSpotsOfType(ParkingSpotType parkingSpotType);
+
+    int getTotalNumOfVacantSpots();
+
+
+    ParkingSpot parkVehicle(Vehicle vehicle);
+
     void unparkVehicle(Vehicle vehicle);
 
-    Iterator<ParkingSpot> getParkingSpotsIterator();
+    Iterator<ParkingSpot> getParkingSpotsIterator(ParkingSpotType parkingSpotType);
 
+    void addSpot(ParkingSpot parkingSpot);
+    void removeSpot(ParkingSpot parkingSpot);
+
+    void setParkingAssignmentPolicy(ParkingAssignmentPolicy parkingAssignmentPolicy);
 }
