@@ -8,7 +8,7 @@ public class ConsoleDisplayBoard implements IDisplayBoard{
     public void displayNumOfVacantSpotsForEachLevel(ParkingLevelsCollection levels){
         System.out.println("Vacant spots on each level:");
         for(ParkingLevel level:levels){
-            System.out.println("Level " + level.getLevelNum()+ ":");
+            System.out.println("Level " + level.getID()+ ":");
             System.out.println("Total: " +level.getTotalNumOfVacantSpots());
             for(ParkingSpotType parkingSpotType: ParkingSpotType.values()) {
                 System.out.println(parkingSpotType+": " + level.getNumOfVacantSpotsOfType(parkingSpotType));
