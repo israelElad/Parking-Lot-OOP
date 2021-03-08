@@ -13,13 +13,19 @@ public class CParkingLevel implements ParkingLevel {
     private int totalNumOfVacantSpots;
     private ParkingAssignmentPolicy parkingAssignmentPolicy;
     private VehicleToParkingSpotTypeMapper possibleSpots;
+    private int parkingLevelNum;
 
-    CParkingLevel(Map<ParkingSpotType, Collection<ParkingSpot>> allSpotsForLevel, VehicleToParkingSpotTypeMapper possibleSpots) {
+    CParkingLevel(Map<ParkingSpotType, Collection<ParkingSpot>> allSpotsForLevel, VehicleToParkingSpotTypeMapper possibleSpots, int parkingLevelNum) {
         this.vacantSpots = allSpotsForLevel;
         this.totalNumOfVacantSpots =
                 allSpotsForLevel.values().stream().
                         mapToInt(Collection::size).sum();
         this.possibleSpots=possibleSpots;
+        this.parkingLevelNum=parkingLevelNum;
+    }
+
+    public int getLevelNum(){
+        return this.parkingLevelNum;
     }
 
     @Override
