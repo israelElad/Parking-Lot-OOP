@@ -3,7 +3,6 @@ package Parking;
 import Payment.*;
 import Vehicles.Vehicle;
 
-import java.util.Collection;
 import java.util.Date;
 
 public class ParkingLot {
@@ -11,6 +10,15 @@ public class ParkingLot {
     private ParkingLevelsCollection nonFullLevels;
     private LevelAssignmentPolicy levelAssignmentPolicy;
     private PaymentCalculation paymentCalculation;
+
+    public ParkingLot
+            (ParkingLevelsCollection allLevels,
+             LevelAssignmentPolicy levelAssignmentPolicy,
+             PaymentCalculation paymentCalculation) {
+        this.nonFullLevels = allLevels;
+        this.levelAssignmentPolicy = levelAssignmentPolicy;
+        this.paymentCalculation = paymentCalculation;
+    }
 
     public ParkingTicket parkVehicle(Vehicle vehicle) throws Exception {
         ParkingLevel assignedParkingLevel = levelAssignmentPolicy.assignLevel(nonFullLevels, vehicle);
@@ -20,7 +28,16 @@ public class ParkingLot {
             nonFullLevels.remove(assignedParkingLevel);
             fullLevels.add(assignedParkingLevel);
         }
-        return generateParkingTicket(vehicle,assignedParkingSpot);
+        return generateParkingTicket(vehicle, assignedParkingSpot);
+    }
+
+    public void unparkVehicle(Vehicle vehicle, PaymentTicket paymentTicket) {
+        ParkingLevel parkingLevel = paymentTicket.getParkingSpot().getParkingLevel();
+        if (parkingLevel.getTotalNumOfVacantSpots() == 0) {
+            fullLevels.remove(parkingLevel);
+            nonFullLevels.add(parkingLevel);
+        }
+        parkingLevel.unparkVehicle(vehicle, paymentTicket);
     }
 
     public PaymentTicket pay(ParkingTicket parkingTicket, PaymentMethod paymentMethod) {
@@ -35,12 +52,9 @@ public class ParkingLot {
         return generatePaymentTicket(parkingTicket, paymentSum);
     }
 
-    public void unparkVehicle(Vehicle vehicle, PaymentTicket paymentTicket) {
-        paymentTicket.getParkingSpot().getParkingLevel().unparkVehicle(vehicle);
-    }
 
     private ParkingTicket generateParkingTicket(Vehicle vehicle, ParkingSpot parkingSpot) {
-        return new ParkingTicket(vehicle.getID(),parkingSpot,new Date());
+        return new ParkingTicket(vehicle.getID(), parkingSpot, new Date());
     }
 
     private PaymentTicket generatePaymentTicket(ParkingTicket parkingTicket, double paymentSum) {

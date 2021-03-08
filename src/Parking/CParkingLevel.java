@@ -1,28 +1,29 @@
 package Parking;
 
 import Payment.ParkingTicket;
+import Payment.PaymentTicket;
 import Vehicles.Vehicle;
 
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.Map;
 
 public class CParkingLevel implements ParkingLevel {
 
-    private Map<ParkingSpotType, ParkingSpotsCollection> vacantSpots;
-    private Map<ParkingSpotType, ParkingSpotsCollection> takenSpots;
+    private Map<ParkingSpotType, Collection<ParkingSpot>> vacantSpots;
+    private Map<ParkingSpotType, Collection<ParkingSpot>> takenSpots;
     private int totalNumOfVacantSpots;
     private ParkingAssignmentPolicy parkingAssignmentPolicy;
 
-    CParkingLevel(Map<ParkingSpotType, ParkingSpotsCollection> allSpotsForLevel) {
+    CParkingLevel(Map<ParkingSpotType, Collection<ParkingSpot>> allSpotsForLevel) {
         this.vacantSpots = allSpotsForLevel;
         this.totalNumOfVacantSpots =
                 allSpotsForLevel.values().stream().
-                        mapToInt(ParkingSpotsCollection::getNumOfSpots).sum();
+                        mapToInt(Collection::size).sum();
     }
 
     @Override
     public int getNumOfVacantSpotsOfType(ParkingSpotType parkingSpotType) {
-        return vacantSpots.get(parkingSpotType).getNumOfSpots();
+        return vacantSpots.get(parkingSpotType).size();
     }
 
     @Override
@@ -30,11 +31,6 @@ public class CParkingLevel implements ParkingLevel {
         return totalNumOfVacantSpots;
     }
 
-    @Override
-    public Iterable<ParkingSpot> getParkingSpotsIterator(
-            ParkingSpotType parkingSpotType) {
-        return vacantSpots.get(parkingSpotType);
-    }
 
     @Override
     public void addSpot(ParkingSpot parkingSpot) {
@@ -44,7 +40,7 @@ public class CParkingLevel implements ParkingLevel {
 
     @Override
     public void removeSpot(ParkingSpot parkingSpot) {
-        ParkingSpotsCollection vacantSpotsOfType =
+        Collection<ParkingSpot> vacantSpotsOfType =
                 vacantSpots.get(parkingSpot.getParkingSpotType());
         if(vacantSpotsOfType.contains(parkingSpot)) {
             vacantSpotsOfType.remove(parkingSpot);
@@ -60,15 +56,24 @@ public class CParkingLevel implements ParkingLevel {
     }
 
     @Override
-    public ParkingSpot parkVehicle(Vehicle vehicle) { //TODO: move from vacant to taken?
+    public ParkingSpot parkVehicle(Vehicle vehicle) {
         ParkingSpot assignedParkingSpot =
-                parkingAssignmentPolicy.assignSpot(this, vehicle);
+                parkingAssignmentPolicy.assignSpot(vacantSpots, vehicle);
+        ParkingSpotType parkingSpotType =
+                assignedParkingSpot.getParkingSpotType();
+        vacantSpots.get(parkingSpotType).remove(assignedParkingSpot);
+        takenSpots.get(parkingSpotType).add(assignedParkingSpot);
         totalNumOfVacantSpots--;
         return assignedParkingSpot;
     }
 
     @Override
-    public void unparkVehicle(Vehicle vehicle) {
+    public void unparkVehicle(Vehicle vehicle, PaymentTicket paymentTicket) {
+        ParkingSpot parkingSpot = paymentTicket.getParkingSpot();
+        ParkingSpotType parkingSpotType =
+                paymentTicket.getParkingSpot().getParkingSpotType();
+        takenSpots.get(parkingSpotType).remove(parkingSpot);
+        vacantSpots.get(parkingSpotType).add(parkingSpot);
         totalNumOfVacantSpots++;
-    } //TODO: move from taken to vacant?
+    }
 }

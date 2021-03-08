@@ -2,6 +2,9 @@ package Parking;
 
 import Vehicles.Vehicle;
 
+import java.util.Collection;
+import java.util.Map;
+
 public interface ParkingAssignmentPolicy {
-    ParkingSpot assignSpot(ParkingLevel parkingLevel, Vehicle vehicle);
+    ParkingSpot assignSpot(Map<ParkingSpotType, Collection<ParkingSpot>> vacantSpots, Vehicle vehicle, VehicleToParkingSpotTypeMapper possibleSpots);
 }
