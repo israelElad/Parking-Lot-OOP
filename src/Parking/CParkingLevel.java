@@ -38,7 +38,7 @@ public class CParkingLevel implements ParkingLevel {
 
     @Override
     public void addSpot(ParkingSpot parkingSpot) {
-        vacantSpots.get(parkingSpot).add(parkingSpot);
+        vacantSpots.get(parkingSpot.getParkingSpotType()).add(parkingSpot);
         totalNumOfVacantSpots++;
     }
 
@@ -60,7 +60,7 @@ public class CParkingLevel implements ParkingLevel {
     }
 
     @Override
-    public ParkingSpot parkVehicle(Vehicle vehicle) {
+    public ParkingSpot parkVehicle(Vehicle vehicle) { //TODO: move from vacant to taken?
         ParkingSpot assignedParkingSpot =
                 parkingAssignmentPolicy.assignSpot(this, vehicle);
         totalNumOfVacantSpots--;
@@ -70,5 +70,5 @@ public class CParkingLevel implements ParkingLevel {
     @Override
     public void unparkVehicle(Vehicle vehicle) {
         totalNumOfVacantSpots++;
-    }
+    } //TODO: move from taken to vacant?
 }

@@ -4,6 +4,7 @@ import Payment.*;
 import Vehicles.Vehicle;
 
 import java.util.Collection;
+import java.util.Date;
 
 public class ParkingLot {
     private ParkingLevelsCollection fullLevels;
@@ -12,17 +13,14 @@ public class ParkingLot {
     private PaymentCalculation paymentCalculation;
 
     public ParkingTicket parkVehicle(Vehicle vehicle) throws Exception {
-        ParkingLevel assignedParkingLevel =
-                levelAssignmentPolicy.assignLevel(nonFullLevels,
-                        vehicle);
-        ParkingSpot assignedParkingSpot =
-                assignedParkingLevel.parkVehicle(vehicle);
+        ParkingLevel assignedParkingLevel = levelAssignmentPolicy.assignLevel(nonFullLevels, vehicle);
+        ParkingSpot assignedParkingSpot = assignedParkingLevel.parkVehicle(vehicle);
 
-        if (assignedParkingLevel.getTotalNumOfVacantSpots()==0) {
+        if (assignedParkingLevel.getTotalNumOfVacantSpots() == 0) {
             nonFullLevels.remove(assignedParkingLevel);
             fullLevels.add(assignedParkingLevel);
         }
-        return parkingTicket;
+        return generateParkingTicket(vehicle,assignedParkingSpot);
     }
 
     public PaymentTicket pay(ParkingTicket parkingTicket, PaymentMethod paymentMethod) {
@@ -41,9 +39,10 @@ public class ParkingLot {
         paymentTicket.getParkingSpot().getParkingLevel().unparkVehicle(vehicle);
     }
 
-    private ParkingTicket generateParkingTicket() {
-
+    private ParkingTicket generateParkingTicket(Vehicle vehicle, ParkingSpot parkingSpot) {
+        return new ParkingTicket(vehicle.getID(),parkingSpot,new Date());
     }
+
     private PaymentTicket generatePaymentTicket(ParkingTicket parkingTicket, double paymentSum) {
         return new PaymentTicket(parkingTicket.getVehicleID(),
                 parkingTicket.getParkingSpot(),
@@ -65,11 +64,12 @@ public class ParkingLot {
 
     public ParkingLevel getLevel(int parkingLevelID) {
         ParkingLevel parkingLevel = fullLevels.getParkingLevel(parkingLevelID);
-        if (parkingLevel!=null) {
+        if (parkingLevel != null) {
             return parkingLevel;
         }
         return nonFullLevels.getParkingLevel((parkingLevelID));
     }
+
     public void addLevel(ParkingLevel parkingLevel) {
         nonFullLevels.add(parkingLevel);
     }
