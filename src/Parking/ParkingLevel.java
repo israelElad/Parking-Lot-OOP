@@ -9,6 +9,8 @@ import java.util.Iterator;
 
 public interface ParkingLevel {
 
+    int getID();
+
     int getNumOfVacantSpotsOfType(ParkingSpotType parkingSpotType);
 
     int getTotalNumOfVacantSpots();

@@ -1,4 +1,5 @@
 package Parking;
 
-public enum ParkingSpotType { //TODO need to map between vehicle type
+public enum ParkingSpotType {
+    Compact, Large
 }

@@ -8,18 +8,25 @@ import java.util.Map;
 
 public class CParkingLevel implements ParkingLevel {
 
+    private int id;
     private Map<ParkingSpotType, Collection<ParkingSpot>> vacantSpots;
     private Map<ParkingSpotType, Collection<ParkingSpot>> takenSpots;
     private int totalNumOfVacantSpots;
     private ParkingAssignmentPolicy parkingAssignmentPolicy;
     private VehicleToParkingSpotTypeMapper possibleSpots;
 
-    CParkingLevel(Map<ParkingSpotType, Collection<ParkingSpot>> allSpotsForLevel, VehicleToParkingSpotTypeMapper possibleSpots) {
+    CParkingLevel(int id, Map<ParkingSpotType,
+            Collection<ParkingSpot>> allSpotsForLevel, VehicleToParkingSpotTypeMapper possibleSpots) {
+        this.id=id;
         this.vacantSpots = allSpotsForLevel;
         this.totalNumOfVacantSpots =
                 allSpotsForLevel.values().stream().
                         mapToInt(Collection::size).sum();
-        this.possibleSpots=possibleSpots;
+        this.possibleSpots = possibleSpots;
+    }
+
+    public int getID() {
+        return id;
     }
 
     @Override
@@ -43,7 +50,7 @@ public class CParkingLevel implements ParkingLevel {
     public void removeSpot(ParkingSpot parkingSpot) {
         Collection<ParkingSpot> vacantSpotsOfType =
                 vacantSpots.get(parkingSpot.getParkingSpotType());
-        if(vacantSpotsOfType.contains(parkingSpot)) {
+        if (vacantSpotsOfType.contains(parkingSpot)) {
             vacantSpotsOfType.remove(parkingSpot);
             totalNumOfVacantSpots--;
             return;
