@@ -1,10 +1,7 @@
 package Parking;
 
-import java.util.Iterator;
+import java.util.Collection;
 
-public interface ParkingSpotsCollection extends Iterator<ParkingSpot>{
+public interface ParkingSpotsCollection extends Collection<ParkingSpot> {
     int getNumOfSpots();
-    boolean contains(ParkingSpot parkingSpot);
-    void add(ParkingSpot parkingSpot);
-    void remove(ParkingSpot parkingSpot);
 }

@@ -1,5 +1,7 @@
 package Parking;
 
-public interface ParkingLevelsCollection {
+import java.util.Collection;
+
+public interface ParkingLevelsCollection extends Collection<ParkingLevel> {
     ParkingLevel getParkingLevel(int parkingLevelID);
 }

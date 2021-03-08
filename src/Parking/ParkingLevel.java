@@ -16,7 +16,7 @@ public interface ParkingLevel {
 
     void unparkVehicle(Vehicle vehicle);
 
-    Iterator<ParkingSpot> getParkingSpotsIterator(ParkingSpotType parkingSpotType);
+    Iterable<ParkingSpot> getParkingSpotsIterator(ParkingSpotType parkingSpotType);
 
     void addSpot(ParkingSpot parkingSpot);
     void removeSpot(ParkingSpot parkingSpot);

@@ -31,7 +31,7 @@ public class CParkingLevel implements ParkingLevel {
     }
 
     @Override
-    public Iterator<ParkingSpot> getParkingSpotsIterator(
+    public Iterable<ParkingSpot> getParkingSpotsIterator(
             ParkingSpotType parkingSpotType) {
         return vacantSpots.get(parkingSpotType);
     }
