@@ -1,6 +1,5 @@
 package Parking;
 
-import Payment.ParkingTicket;
 import Payment.PaymentTicket;
 import Vehicles.Vehicle;
 
@@ -13,12 +12,14 @@ public class CParkingLevel implements ParkingLevel {
     private Map<ParkingSpotType, Collection<ParkingSpot>> takenSpots;
     private int totalNumOfVacantSpots;
     private ParkingAssignmentPolicy parkingAssignmentPolicy;
+    private VehicleToParkingSpotTypeMapper possibleSpots;
 
-    CParkingLevel(Map<ParkingSpotType, Collection<ParkingSpot>> allSpotsForLevel) {
+    CParkingLevel(Map<ParkingSpotType, Collection<ParkingSpot>> allSpotsForLevel, VehicleToParkingSpotTypeMapper possibleSpots) {
         this.vacantSpots = allSpotsForLevel;
         this.totalNumOfVacantSpots =
                 allSpotsForLevel.values().stream().
                         mapToInt(Collection::size).sum();
+        this.possibleSpots=possibleSpots;
     }
 
     @Override
@@ -58,7 +59,7 @@ public class CParkingLevel implements ParkingLevel {
     @Override
     public ParkingSpot parkVehicle(Vehicle vehicle) {
         ParkingSpot assignedParkingSpot =
-                parkingAssignmentPolicy.assignSpot(vacantSpots, vehicle);
+                parkingAssignmentPolicy.assignSpot(vacantSpots, vehicle, possibleSpots);
         ParkingSpotType parkingSpotType =
                 assignedParkingSpot.getParkingSpotType();
         vacantSpots.get(parkingSpotType).remove(assignedParkingSpot);
