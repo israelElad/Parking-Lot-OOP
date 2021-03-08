@@ -1,5 +1,5 @@
 package Parking;
 
 public enum ParkingSpotType {
-    Compact, Large
+    MOTORCYCLE, COMPACT, LARGE
 }
