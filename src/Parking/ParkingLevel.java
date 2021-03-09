@@ -12,7 +12,7 @@ public interface ParkingLevel {
     int getTotalNumOfVacantSpots();
 
 
-    ParkingSpot parkVehicle(Vehicle vehicle);
+    ParkingSpot parkVehicle(Vehicle vehicle, ParkingAssignmentPolicy parkingAssignmentPolicy);
 
     public void unparkVehicle(Vehicle vehicle, PaymentTicket paymentTicket);
 

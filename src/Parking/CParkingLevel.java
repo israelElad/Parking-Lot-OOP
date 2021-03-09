@@ -3,7 +3,9 @@ package Parking;
 import Payment.PaymentTicket;
 import Vehicles.Vehicle;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 public class CParkingLevel implements ParkingLevel {
@@ -17,8 +19,12 @@ public class CParkingLevel implements ParkingLevel {
 
     CParkingLevel(int id, Map<ParkingSpotType,
             Collection<ParkingSpot>> allSpotsForLevel, VehicleToParkingSpotTypeMapper possibleSpots) {
-        this.id=id;
+        this.id = id;
         this.vacantSpots = allSpotsForLevel;
+        this.takenSpots = new HashMap<>();
+        takenSpots.put(ParkingSpotType.MOTORCYCLE, new ArrayList<>());
+        takenSpots.put(ParkingSpotType.COMPACT, new ArrayList<>());
+        takenSpots.put(ParkingSpotType.LARGE, new ArrayList<>());
         this.totalNumOfVacantSpots =
                 allSpotsForLevel.values().stream().
                         mapToInt(Collection::size).sum();
@@ -64,9 +70,11 @@ public class CParkingLevel implements ParkingLevel {
     }
 
     @Override
-    public ParkingSpot parkVehicle(Vehicle vehicle) {
+    public ParkingSpot parkVehicle
+            (Vehicle vehicle, ParkingAssignmentPolicy parkingAssignmentPolicy) {
         ParkingSpot assignedParkingSpot =
-                parkingAssignmentPolicy.assignSpot(vacantSpots, vehicle, possibleSpots);
+                parkingAssignmentPolicy.assignSpot(vacantSpots,
+                        possibleSpots.getPossibleParkingSpotTypes(vehicle.getVehicleType()));
         ParkingSpotType parkingSpotType =
                 assignedParkingSpot.getParkingSpotType();
         vacantSpots.get(parkingSpotType).remove(assignedParkingSpot);

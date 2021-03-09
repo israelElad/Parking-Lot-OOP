@@ -11,14 +11,17 @@ public class ParkingLot {
     private ParkingLevelsCollection fullLevels;
     private ParkingLevelsCollection nonFullLevels;
     private LevelAssignmentPolicy levelAssignmentPolicy;
+    private ParkingAssignmentPolicy parkingAssignmentPolicy;
     private PaymentCalculation paymentCalculation;
 
     public ParkingLot
             (ParkingLevelsCollection allLevels,
              LevelAssignmentPolicy levelAssignmentPolicy,
+             ParkingAssignmentPolicy parkingAssignmentPolicy,
              PaymentCalculation paymentCalculation) {
         this.nonFullLevels = allLevels;
         this.levelAssignmentPolicy = levelAssignmentPolicy;
+        this.parkingAssignmentPolicy = parkingAssignmentPolicy;
         this.paymentCalculation = paymentCalculation;
         this.fullLevels= new ArrayListParkingLevelsCollection();
     }
@@ -28,7 +31,8 @@ public class ParkingLot {
             throw new ParkingLotIsFullException("No vacant levels for parking");
         }
         ParkingLevel assignedParkingLevel = levelAssignmentPolicy.assignLevel(nonFullLevels, vehicle);
-        ParkingSpot assignedParkingSpot = assignedParkingLevel.parkVehicle(vehicle);
+        ParkingSpot assignedParkingSpot =
+                assignedParkingLevel.parkVehicle(vehicle, parkingAssignmentPolicy);
 
         if (assignedParkingLevel.getTotalNumOfVacantSpots() == 0) {
             nonFullLevels.remove(assignedParkingLevel);

@@ -6,5 +6,6 @@ import java.util.Collection;
 import java.util.Map;
 
 public interface ParkingAssignmentPolicy {
-    ParkingSpot assignSpot(Map<ParkingSpotType, Collection<ParkingSpot>> vacantSpots, Vehicle vehicle, VehicleToParkingSpotTypeMapper possibleSpots);
+    ParkingSpot assignSpot(Map<ParkingSpotType,
+            Collection<ParkingSpot>> vacantSpots, Collection<ParkingSpotType> possibleParkingSpotTypes);
 }
