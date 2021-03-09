@@ -29,6 +29,7 @@ public class CarOwner {
         while (numOfTries > 0) {
             try {
                 this.parkingTicket = parkingLot.parkVehicle(vehicle);
+                break;
             } catch (ParkingLotIsFullException parkingLotIsFullException) {
                 handleFullParkingLotException(parkingLotIsFullException);
             }
