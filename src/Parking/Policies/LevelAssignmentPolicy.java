@@ -6,5 +6,5 @@ import Vehicles.Vehicle;
 
 public interface LevelAssignmentPolicy {
     ParkingLevel assignLevel
-            (ParkingLevelsCollection levels, Vehicle vehicle);
+            (Iterable<ParkingLevel> levels, Vehicle vehicle);
 }
