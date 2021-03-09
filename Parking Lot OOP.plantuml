@@ -1,0 +1,311 @@
+@startuml
+
+title __PARKING LOT OOP's Class Diagram__\n
+
+
+    namespace DisplayBoard {
+      class DisplayBoard.ConsoleDisplayBoard {
+      }
+    }
+
+  
+
+
+    namespace DisplayBoard {
+      interface DisplayBoard.IDisplayBoard {
+      }
+    }
+
+  
+
+
+    namespace Exceptions {
+      class Exceptions.InvalidParkingTicketException {
+      }
+    }
+
+  
+
+
+    namespace Exceptions {
+      class Exceptions.InvalidPaymentTicketException {
+      }
+    }
+
+  
+
+
+    namespace Exceptions {
+      class Exceptions.ParkingLotIsFullException {
+      }
+    }
+
+  
+
+
+    class Main {
+    }
+
+  
+
+    namespace Parking {
+      class Parking.ArrayListParkingLevelsCollection {
+      }
+    }
+
+  
+
+
+    namespace Parking {
+      class Parking.CParkingLevel {
+      }
+    }
+
+  
+
+
+    namespace Parking {
+      namespace Factories {
+        class Parking.Factories.ParkingLevelsCollectionFactory {
+        }
+     }
+    }
+
+  
+
+
+    namespace Parking {
+      namespace Factories {
+        class Parking.Factories.ParkingLotFactory {
+        }
+     }
+    }
+
+  
+
+
+    namespace Parking {
+      interface Parking.ParkingLevel {
+      }
+    }
+
+  
+
+
+    namespace Parking {
+      interface Parking.ParkingLevelsCollection {
+      }
+    }
+
+  
+
+
+    namespace Parking {
+      class Parking.ParkingLot {
+      }
+    }
+
+  
+
+
+    namespace Parking {
+      interface Parking.ParkingLotFacade {
+      }
+    }
+
+  
+
+
+    namespace Parking {
+      class Parking.ParkingSpot {
+      }
+    }
+
+  
+
+
+    namespace Parking {
+      enum ParkingSpotType {
+      }
+    }
+
+  
+
+
+    namespace Parking {
+      namespace Policies {
+        class Parking.Policies.BasicLevelAssignmentPolicy {
+        }
+     }
+    }
+
+  
+
+
+    namespace Parking {
+      namespace Policies {
+        class Parking.Policies.BasicParkingAssignmentPolicy {
+        }
+     }
+    }
+
+  
+
+
+    namespace Parking {
+      namespace Policies {
+        interface Parking.Policies.LevelAssignmentPolicy {
+        }
+     }
+    }
+
+  
+
+
+    namespace Parking {
+      namespace Policies {
+        interface Parking.Policies.ParkingAssignmentPolicy {
+        }
+     }
+    }
+
+  
+
+
+    namespace Parking {
+      interface Parking.VehicleToParkingSpotTypeMapper {
+      }
+    }
+
+  
+
+
+    namespace Payment {
+      class Payment.BasicHourlyPayment {
+      }
+    }
+
+  
+
+
+    namespace Payment {
+      class Payment.CashPayment {
+      }
+    }
+
+  
+
+
+    namespace Payment {
+      class Payment.CreditCardPayment {
+      }
+    }
+
+  
+
+
+    namespace Payment {
+      class Payment.ParkingTicket {
+      }
+    }
+
+  
+
+
+    namespace Payment {
+      interface Payment.PaymentCalculation {
+      }
+    }
+
+  
+
+
+    namespace Payment {
+      class Payment.PaymentException {
+      }
+    }
+
+  
+
+
+    namespace Payment {
+      interface Payment.PaymentMethod {
+      }
+    }
+
+  
+
+
+    namespace Payment {
+      class Payment.PaymentTicket {
+      }
+    }
+
+  
+
+
+    namespace Users {
+      class Users.Admin {
+      }
+    }
+
+  
+
+
+    namespace Users {
+      class Users.CarOwner {
+      }
+    }
+
+  
+
+
+    namespace Vehicles {
+      class Vehicles.Vehicle {
+      }
+    }
+
+  
+
+
+    namespace Vehicles {
+      enum VehicleType {
+      }
+    }
+
+  
+
+  DisplayBoard.ConsoleDisplayBoard .up.|> DisplayBoard.IDisplayBoard
+  Parking.ArrayListParkingLevelsCollection .up.|> Parking.ParkingLevelsCollection
+  Parking.ArrayListParkingLevelsCollection -up-|> java.util.ArrayList
+  Parking.CParkingLevel .up.|> Parking.ParkingLevel
+  Parking.CParkingLevel o-- Parking.Policies.ParkingAssignmentPolicy : parkingAssignmentPolicy
+  Parking.CParkingLevel o-- Parking.VehicleToParkingSpotTypeMapper : possibleSpots
+  Parking.ParkingLot .up.|> Parking.ParkingLotFacade
+  Parking.ParkingLot o-- Parking.ParkingLevelsCollection : fullLevels
+  Parking.ParkingLot o-- Parking.Policies.LevelAssignmentPolicy : levelAssignmentPolicy
+  Parking.ParkingLot o-- Parking.ParkingLevelsCollection : nonFullLevels
+  Parking.ParkingLot o-- Parking.Policies.ParkingAssignmentPolicy : parkingAssignmentPolicy
+  Parking.ParkingLot o-- Payment.PaymentCalculation : paymentCalculation
+  Parking.ParkingSpot o-- Parking.ParkingSpotType : parkingSpotType
+  Parking.Policies.BasicLevelAssignmentPolicy .up.|> Parking.Policies.LevelAssignmentPolicy
+  Parking.Policies.BasicParkingAssignmentPolicy .up.|> Parking.Policies.ParkingAssignmentPolicy
+  Payment.BasicHourlyPayment .up.|> Payment.PaymentCalculation
+  Payment.CashPayment .up.|> Payment.PaymentMethod
+  Payment.CreditCardPayment .up.|> Payment.PaymentMethod
+  Payment.ParkingTicket o-- Parking.ParkingSpot : parkingSpot
+  Payment.PaymentTicket o-- Parking.ParkingSpot : parkingSpot
+  Users.CarOwner o-- Payment.ParkingTicket : parkingTicket
+  Users.CarOwner o-- Payment.PaymentTicket : paymentTicket
+  Users.CarOwner o-- Vehicles.Vehicle : vehicle
+  Vehicles.Vehicle o-- Vehicles.VehicleType : vehicleType
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
