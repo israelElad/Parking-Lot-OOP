@@ -4,7 +4,6 @@ import Payment.*;
 import Payment.InvalidPaymentTicketException;
 import Vehicles.Vehicle;
 
-import java.lang.reflect.Array;
 import java.util.Date;
 
 public class ParkingLot {

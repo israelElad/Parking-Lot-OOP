@@ -34,7 +34,7 @@ public class ParkingTicket {
     public String toString() {
         return "Parking ticket:\n" +
                 "vehicleID=" + vehicleID + "\n" +
-                "parkingSpot=" + parkingSpot + "\n" +
+                "parkingSpot=" + parkingSpot.getParkingSpotID() + " on level " + parkingSpot.getParkingLevelID()+ "\n" +
                 "parkingTime=" + parkingTime + "\n";
     }
 }
