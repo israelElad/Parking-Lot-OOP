@@ -32,7 +32,8 @@ public class ParkingLot {
     }
 
     public void unparkVehicle(Vehicle vehicle, PaymentTicket paymentTicket) {
-        ParkingLevel parkingLevel = paymentTicket.getParkingSpot().getParkingLevel();
+        int parkingLevelID = paymentTicket.getParkingSpot().getParkingLevelID();
+        ParkingLevel parkingLevel = getLevel(parkingLevelID);
         if (parkingLevel.getTotalNumOfVacantSpots() == 0) {
             fullLevels.remove(parkingLevel);
             nonFullLevels.add(parkingLevel);

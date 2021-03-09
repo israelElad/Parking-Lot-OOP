@@ -3,12 +3,12 @@ package Parking;
 public class ParkingSpot {
 
     private int parkingSpotID;
-    private ParkingLevel parkingLevel;
+    private int parkingLevelID;
     private ParkingSpotType parkingSpotType;
 
-    public ParkingSpot(int parkingSpotID, ParkingLevel parkingLevel, ParkingSpotType parkingSpotType) {
+    public ParkingSpot(int parkingSpotID, int parkingLevelID, ParkingSpotType parkingSpotType) {
         this.parkingSpotID = parkingSpotID;
-        this.parkingLevel = parkingLevel;
+        this.parkingLevelID = parkingLevelID;
         this.parkingSpotType = parkingSpotType;
     }
 
@@ -16,8 +16,8 @@ public class ParkingSpot {
         return parkingSpotID;
     }
 
-    public ParkingLevel getParkingLevel() {
-        return parkingLevel;
+    public int getParkingLevelID() {
+        return parkingLevelID;
     }
 
     public ParkingSpotType getParkingSpotType() {
