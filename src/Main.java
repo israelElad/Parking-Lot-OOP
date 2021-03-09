@@ -69,7 +69,7 @@ public class Main {
             return;
         }
         VehicleType vehicleType = VehicleType.valueOf(vehicleTypeStr.toUpperCase());
-        Vehicle vehicle = new Car(carID, vehicleType);
+        Vehicle vehicle = new Car(carID);
 
         CarOwner carOwner = new CarOwner(carOwnerName, vehicle);
 
