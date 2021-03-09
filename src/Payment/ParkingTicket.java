@@ -1,6 +1,5 @@
 package Payment;
 
-import Parking.ParkingLevel;
 import Parking.ParkingSpot;
 
 import java.util.Date;
@@ -11,7 +10,6 @@ public class ParkingTicket {
     private int vehicleID;
     private ParkingSpot parkingSpot;
     private Date parkingTime;
-
 
 
     public ParkingTicket(int vehicleID, ParkingSpot parkingSpot, Date parkingTime) {
@@ -30,5 +28,13 @@ public class ParkingTicket {
 
     public Date getParkingTime() {
         return parkingTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Parking ticket:\n" +
+                "vehicleID=" + vehicleID + "\n" +
+                "parkingSpot=" + parkingSpot + "\n" +
+                "parkingTime=" + parkingTime + "\n";
     }
 }

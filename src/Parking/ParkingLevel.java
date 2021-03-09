@@ -1,11 +1,7 @@
 package Parking;
 
-import Payment.ParkingTicket;
-import Payment.PaymentException;
 import Payment.PaymentTicket;
 import Vehicles.Vehicle;
-
-import java.util.Iterator;
 
 public interface ParkingLevel {
 
