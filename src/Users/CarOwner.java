@@ -1,12 +1,12 @@
 package Users;
 
-import Parking.InvalidParkingTicketException;
-import Parking.ParkingLot;
-import Parking.ParkingLotIsFullException;
+import Exceptions.InvalidParkingTicketException;
+import Exceptions.ParkingLotIsFullException;
+import Parking.ParkingLotFacade;
 import Payment.ParkingTicket;
 import Payment.PaymentMethod;
 import Payment.PaymentTicket;
-import Payment.InvalidPaymentTicketException;
+import Exceptions.InvalidPaymentTicketException;
 import Vehicles.Vehicle;
 
 import java.util.concurrent.TimeUnit;
@@ -24,7 +24,7 @@ public class CarOwner {
         this.paymentTicket = null;
     }
 
-    public ParkingTicket parkVehicle(ParkingLot parkingLot) {
+    public ParkingTicket parkVehicle(ParkingLotFacade parkingLot) {
         int numOfTries = 5;
         while (numOfTries > 0) {
             try {
@@ -46,7 +46,7 @@ public class CarOwner {
         }
     }
 
-    public PaymentTicket pay(ParkingLot parkingLot, PaymentMethod paymentMethod) {
+    public PaymentTicket pay(ParkingLotFacade parkingLot, PaymentMethod paymentMethod) {
 
         try {
             this.paymentTicket = parkingLot.pay(this.parkingTicket, paymentMethod);
@@ -56,7 +56,7 @@ public class CarOwner {
         return this.paymentTicket;
     }
 
-    public void unparkVehicle(ParkingLot parkingLot) {
+    public void unparkVehicle(ParkingLotFacade parkingLot) {
         try {
             parkingLot.unparkVehicle(this.vehicle, this.paymentTicket);
         }

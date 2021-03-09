@@ -1,5 +1,11 @@
-package Parking;
+package Parking.Factories;
 
+import Parking.ParkingLevelsCollection;
+import Parking.ParkingLot;
+import Parking.Policies.BasicLevelAssignmentPolicy;
+import Parking.Policies.BasicParkingAssignmentPolicy;
+import Parking.Policies.LevelAssignmentPolicy;
+import Parking.Policies.ParkingAssignmentPolicy;
 import Payment.BasicHourlyPayment;
 import Payment.PaymentCalculation;
 

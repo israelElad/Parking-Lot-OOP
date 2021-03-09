@@ -1,5 +1,6 @@
-package Parking;
+package Parking.Factories;
 
+import Parking.*;
 import Vehicles.VehicleType;
 
 import java.util.*;

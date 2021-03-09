@@ -1,5 +1,6 @@
 package Parking;
 
+import Parking.Policies.ParkingAssignmentPolicy;
 import Payment.PaymentTicket;
 import Vehicles.Vehicle;
 
@@ -17,7 +18,7 @@ public class CParkingLevel implements ParkingLevel {
     private ParkingAssignmentPolicy parkingAssignmentPolicy;
     private VehicleToParkingSpotTypeMapper possibleSpots;
 
-    CParkingLevel(int id, Map<ParkingSpotType,
+    public CParkingLevel(int id, Map<ParkingSpotType,
             Collection<ParkingSpot>> allSpotsForLevel, VehicleToParkingSpotTypeMapper possibleSpots) {
         this.id = id;
         this.vacantSpots = allSpotsForLevel;

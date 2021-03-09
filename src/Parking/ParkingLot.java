@@ -1,12 +1,16 @@
 package Parking;
 
+import Exceptions.InvalidParkingTicketException;
+import Exceptions.ParkingLotIsFullException;
+import Parking.Policies.LevelAssignmentPolicy;
+import Parking.Policies.ParkingAssignmentPolicy;
 import Payment.*;
-import Payment.InvalidPaymentTicketException;
+import Exceptions.InvalidPaymentTicketException;
 import Vehicles.Vehicle;
 
 import java.util.Date;
 
-public class ParkingLot {
+public class ParkingLot implements ParkingLotFacade{
     private ParkingLevelsCollection fullLevels;
     private ParkingLevelsCollection nonFullLevels;
     private LevelAssignmentPolicy levelAssignmentPolicy;

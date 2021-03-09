@@ -1,5 +1,7 @@
-package Parking;
+package Parking.Policies;
 
+import Parking.ParkingLevel;
+import Parking.ParkingLevelsCollection;
 import Vehicles.Vehicle;
 
 public class BasicLevelAssignmentPolicy implements LevelAssignmentPolicy{

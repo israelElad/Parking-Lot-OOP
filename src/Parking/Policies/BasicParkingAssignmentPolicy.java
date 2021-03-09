@@ -1,4 +1,7 @@
-package Parking;
+package Parking.Policies;
+
+import Parking.ParkingSpot;
+import Parking.ParkingSpotType;
 
 import java.util.Collection;
 import java.util.Map;

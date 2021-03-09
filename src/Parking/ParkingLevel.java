@@ -1,5 +1,6 @@
 package Parking;
 
+import Parking.Policies.ParkingAssignmentPolicy;
 import Payment.PaymentTicket;
 import Vehicles.Vehicle;
 

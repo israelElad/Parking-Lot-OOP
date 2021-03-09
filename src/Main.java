@@ -1,4 +1,5 @@
 import Parking.*;
+import Parking.Factories.ParkingLotFactory;
 import Payment.ParkingTicket;
 import Users.CarOwner;
 import Vehicles.Vehicle;
@@ -54,7 +55,7 @@ public class Main {
         }
     }
 
-    static void handleCarOwner(Scanner scanner, ParkingLot parkingLot) {
+    static void handleCarOwner(Scanner scanner, ParkingLotFacade parkingLot) {
         System.out.println("Welcome, Please enter your name:");
         String carOwnerName = scanner.next();
 
