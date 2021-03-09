@@ -1,6 +1,7 @@
 package Parking;
 
 import Payment.*;
+import Payment.InvalidPaymentTicketException;
 import Vehicles.Vehicle;
 
 import java.util.Date;
@@ -34,7 +35,11 @@ public class ParkingLot {
         return generateParkingTicket(vehicle, assignedParkingSpot);
     }
 
-    public void unparkVehicle(Vehicle vehicle, PaymentTicket paymentTicket) {
+    public void unparkVehicle(Vehicle vehicle, PaymentTicket paymentTicket) throws InvalidPaymentTicketException {
+        if (paymentTicket == null) {
+            throw new InvalidPaymentTicketException("Invalid payment ticket " +
+                    "was passed");
+        }
         int parkingLevelID = paymentTicket.getParkingSpot().getParkingLevelID();
         ParkingLevel parkingLevel = getLevel(parkingLevelID);
         if (parkingLevel.getTotalNumOfVacantSpots() == 0) {
@@ -44,7 +49,11 @@ public class ParkingLot {
         parkingLevel.unparkVehicle(vehicle, paymentTicket);
     }
 
-    public PaymentTicket pay(ParkingTicket parkingTicket, PaymentMethod paymentMethod) {
+    public PaymentTicket pay(ParkingTicket parkingTicket, PaymentMethod paymentMethod) throws InvalidParkingTicketException {
+        if (parkingTicket==null) {
+            throw new InvalidParkingTicketException("an invalid parking " +
+                    "ticket was passed");
+        }
         double paymentSum =
                 paymentCalculation.calculatePaymentSum(parkingTicket);
         try {

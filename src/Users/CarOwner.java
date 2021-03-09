@@ -1,10 +1,12 @@
 package Users;
 
+import Parking.InvalidParkingTicketException;
 import Parking.ParkingLot;
 import Parking.ParkingLotIsFullException;
 import Payment.ParkingTicket;
 import Payment.PaymentMethod;
 import Payment.PaymentTicket;
+import Payment.InvalidPaymentTicketException;
 import Vehicles.Vehicle;
 
 import java.util.concurrent.TimeUnit;
@@ -36,7 +38,7 @@ public class CarOwner {
     }
 
     private void handleFullParkingLotException(ParkingLotIsFullException parkingLotIsFullException) {
-        System.out.println(parkingLotIsFullException.getMessage());
+        parkingLotIsFullException.printStackTrace();
         try {
             TimeUnit.MINUTES.sleep(1);
         } catch (InterruptedException e) {
@@ -45,18 +47,22 @@ public class CarOwner {
     }
 
     public PaymentTicket pay(ParkingLot parkingLot, PaymentMethod paymentMethod) {
-        if (this.parkingTicket == null) {
-            //todo: throw exception
+
+        try {
+            this.paymentTicket = parkingLot.pay(this.parkingTicket, paymentMethod);
+        } catch (InvalidParkingTicketException e) {
+            e.printStackTrace();
         }
-        this.paymentTicket = parkingLot.pay(this.parkingTicket, paymentMethod);
         return this.paymentTicket;
     }
 
-    public void unparkVehicle(ParkingLot parkingLot) throws Exception {
-        if (this.paymentTicket == null) {
-            //todo: throw exception
+    public void unparkVehicle(ParkingLot parkingLot) {
+        try {
+            parkingLot.unparkVehicle(this.vehicle, this.paymentTicket);
         }
-        parkingLot.unparkVehicle(this.vehicle, this.paymentTicket);
+        catch (InvalidPaymentTicketException e) {
+            e.printStackTrace();
+        }
     }
 
 

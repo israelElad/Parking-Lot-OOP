@@ -62,7 +62,8 @@ public class Main {
         System.out.println("Please enter your vehicle's ID:");
         int carID = scanner.nextInt();
 
-        System.out.println("Please enter your vehicle's type:");
+        System.out.println("Please enter your vehicle's type:"); //todo
+        // switch to numerical selection
         String vehicleTypeStr = scanner.next();
         if (Arrays.stream(VehicleType.values()).noneMatch(e -> e.name().equalsIgnoreCase(vehicleTypeStr))) {
             System.out.println("invalid vehicle type!");
@@ -77,7 +78,7 @@ public class Main {
         int carOwnersChoice = scanner.nextInt();
         switch (carOwnersChoice) {
             case 1: //park
-                ParkingTicket parkingTicket = carOwner.parkVehicle(parkingLot); //todo: handle exception
+                ParkingTicket parkingTicket = carOwner.parkVehicle(parkingLot);
                 System.out.println(parkingTicket);
                 break;
             default:
