@@ -4,6 +4,7 @@ import Payment.*;
 import Payment.InvalidPaymentTicketException;
 import Vehicles.Vehicle;
 
+import java.lang.reflect.Array;
 import java.util.Date;
 
 public class ParkingLot {
@@ -19,10 +20,11 @@ public class ParkingLot {
         this.nonFullLevels = allLevels;
         this.levelAssignmentPolicy = levelAssignmentPolicy;
         this.paymentCalculation = paymentCalculation;
+        this.fullLevels= new ArrayListParkingLevelsCollection();
     }
 
     public ParkingTicket parkVehicle(Vehicle vehicle) throws ParkingLotIsFullException {
-        if (fullLevels.size() == 0) {
+        if (nonFullLevels.size() == 0) {
             throw new ParkingLotIsFullException("No vacant levels for parking");
         }
         ParkingLevel assignedParkingLevel = levelAssignmentPolicy.assignLevel(nonFullLevels, vehicle);

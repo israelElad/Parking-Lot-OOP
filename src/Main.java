@@ -1,7 +1,6 @@
 import Parking.*;
 import Payment.ParkingTicket;
 import Users.CarOwner;
-import Vehicles.Car;
 import Vehicles.Vehicle;
 import Vehicles.VehicleType;
 
@@ -16,7 +15,7 @@ public class Main {
         ParkingLot parkingLot = ParkingLotFactory.createNewParkingLot();
 
         while (true) {
-            System.out.println("Welcome to our parking lot.\n Enter 1 if you're a car owner, 2 for admin's panel:");
+            System.out.println("Welcome to our parking lot.\nEnter 1 if you're a car owner, 2 for admin's panel:");
             int userType = scanner.nextInt();
 
             if (userType == 2) {   //admin
@@ -62,15 +61,13 @@ public class Main {
         System.out.println("Please enter your vehicle's ID:");
         int carID = scanner.nextInt();
 
-        System.out.println("Please enter your vehicle's type:"); //todo
-        // switch to numerical selection
-        String vehicleTypeStr = scanner.next();
-        if (Arrays.stream(VehicleType.values()).noneMatch(e -> e.name().equalsIgnoreCase(vehicleTypeStr))) {
-            System.out.println("invalid vehicle type!");
-            return;
-        }
-        VehicleType vehicleType = VehicleType.valueOf(vehicleTypeStr.toUpperCase());
-        Vehicle vehicle = new Car(carID);
+        System.out.print("Please enter your vehicle's type:\n"+
+                "0 for motorcycle\n" +
+                "1 for car\n" +
+                "2 for truck\n");
+        VehicleType vehicleType = VehicleType.values()[scanner.nextInt()];
+
+        Vehicle vehicle = new Vehicle(carID, vehicleType);
 
         CarOwner carOwner = new CarOwner(carOwnerName, vehicle);
 
