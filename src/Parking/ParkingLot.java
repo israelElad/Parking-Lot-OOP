@@ -114,4 +114,11 @@ public class ParkingLot implements ParkingLotFacade{
         fullLevels.remove(parkingLevel);
         nonFullLevels.remove(parkingLevel);
     }
+
+    public ParkingLevelsCollection getAllLevels(){
+        ParkingLevelsCollection combined= new ArrayListParkingLevelsCollection();
+        combined.addAll(nonFullLevels);
+        combined.addAll(fullLevels);
+        return combined;
+    }
 }

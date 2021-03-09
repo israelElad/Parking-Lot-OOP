@@ -1,3 +1,5 @@
+import DisplayBoard.ConsoleDisplayBoard;
+import DisplayBoard.IDisplayBoard;
 import Parking.*;
 import Parking.Factories.ParkingLotFactory;
 import Payment.ParkingTicket;
@@ -16,13 +18,16 @@ public class Main {
         ParkingLot parkingLot = ParkingLotFactory.createNewParkingLot();
 
         while (true) {
-            System.out.println("Welcome to our parking lot.\nEnter 1 if you're a car owner, 2 for admin's panel:");
+            System.out.println("Welcome to our parking lot.\nEnter 1 if you're a car owner, 2 for admin's panel, 3 for display board:");
             int userType = scanner.nextInt();
 
             if (userType == 2) {   //admin
                 handleAdmin(scanner, parkingLot);
             } else if (userType == 1) {   //car owner
                 handleCarOwner(scanner, parkingLot);
+            }else if (userType==3){
+                IDisplayBoard displayBoard=new ConsoleDisplayBoard();
+                displayBoard.displayNumOfVacantSpotsForEachLevel(parkingLot.getAllLevels());
             }
         }
     }
