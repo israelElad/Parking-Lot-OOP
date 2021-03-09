@@ -20,7 +20,10 @@ public class ParkingLot {
         this.paymentCalculation = paymentCalculation;
     }
 
-    public ParkingTicket parkVehicle(Vehicle vehicle) throws Exception {
+    public ParkingTicket parkVehicle(Vehicle vehicle) throws ParkingLotIsFullException {
+        if (fullLevels.size() == 0) {
+            throw new ParkingLotIsFullException("No vacant levels for parking");
+        }
         ParkingLevel assignedParkingLevel = levelAssignmentPolicy.assignLevel(nonFullLevels, vehicle);
         ParkingSpot assignedParkingSpot = assignedParkingLevel.parkVehicle(vehicle);
 

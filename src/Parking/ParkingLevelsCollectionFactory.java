@@ -5,16 +5,17 @@ import Vehicles.VehicleType;
 import java.util.*;
 
 public class ParkingLevelsCollectionFactory {
-    private static int NUM_OF_LEVELS = 10;
-    private static int NUM_OF_SPOT_TYPES = ParkingSpotType.values().length;
-    private static int NUM_OF_SPOTS_PER_SPOT_TYPE = 100;
+    private static final int NUM_OF_LEVELS = 10;
+    private static final int NUM_OF_SPOT_TYPES =
+            ParkingSpotType.values().length;
+    private static final int NUM_OF_SPOTS_PER_SPOT_TYPE = 100;
 
     public static ParkingLevelsCollection createParkingLevelsCollection() {
         ParkingLevelsCollection levels =
                 new ArrayListParkingLevelsCollection();
         int parkingSpotID = 0;
         int parkingLevelID = 0;
-        for (int i=0; i<NUM_OF_LEVELS; i++) {
+        for (int i = 0; i < NUM_OF_LEVELS; i++) {
             Map<ParkingSpotType, Collection<ParkingSpot>> allSpotsForLevel = generateSpots(parkingLevelID, parkingSpotID);
 
             VehicleToParkingSpotTypeMapper vehicleToSpotTypesMapper = typesMapper();
@@ -37,15 +38,8 @@ public class ParkingLevelsCollectionFactory {
         typesMapper.put(VehicleType.CAR,
                 Arrays.asList(ParkingSpotType.COMPACT, ParkingSpotType.LARGE));
         typesMapper.put(VehicleType.TRUCK,
-                Arrays.asList(ParkingSpotType.LARGE));
-        VehicleToParkingSpotTypeMapper vehicleToSpotTypesMapper = new VehicleToParkingSpotTypeMapper() {
-            @Override
-            public Collection<ParkingSpotType> getPossibleParkingSpotTypes(VehicleType vehicleType) {
-                return typesMapper.get(vehicleType);
-            }
-        };
-        return vehicleToSpotTypesMapper;
-
+                Collections.singletonList(ParkingSpotType.LARGE));
+        return typesMapper::get;
     }
 
     private static Map<ParkingSpotType, Collection<ParkingSpot>> generateSpots(int parkingLevelID, int parkingSpotID) {
