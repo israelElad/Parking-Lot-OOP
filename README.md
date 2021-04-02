@@ -1,5 +1,5 @@
 # Parking-Lot-OOP
-Last semester- "Advanced Programming Paradigms" course: Parking lot management system demonstrating SOLID principles, Object-Oriented-Programming (OOPs) and Design Patterns(Strategy pattern, Iterator pattern, Static Factory Method pattern, Facade pattern...).
+Parking lot management system demonstrating SOLID principles, Object-Oriented-Programming (OOPs) and Design Patterns(Strategy pattern, Iterator pattern, Static Factory Method pattern, Facade pattern...).
 
 TODO: 
 * Use proxy instead of facade(for admin privilages).
