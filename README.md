@@ -1,5 +1,5 @@
 # Parking-Lot-OOP
-Parking lot management system demonstrating SOLID principles, Object-Oriented-Programming and Design Patterns (Strategy, Iterato, Static Factory Method, Facade, etc).
+Parking lot management system demonstrating SOLID principles, Object-Oriented-Programming and Design Patterns (Strategy, Iterator, Static Factory Method, Facade, etc).
 
 System features:
 * Parking lot can comprise multiple floors
